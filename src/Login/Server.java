@@ -4,10 +4,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Server {
-    private ServerSocket serverSocket; // 서버 소켓 생성
-    private static ArrayList<ClientHandler> clientList = new ArrayList<>(); // 접속 클라이언트들
+    private ServerSocket serverSocket;
+    private static ArrayList<ClientHandler> clientList = new ArrayList<>();
 
-    // 서버 설정
     public void serverSetting() {
         try{
             System.out.println("[Server] ---JAVA GAME SERVER 가동---");
@@ -26,18 +25,18 @@ public class Server {
 
     public static void main(String[] args) {
         Socket clientSocket;
-        Server s = new Server(); // 서버 객체 생성
+        Server s = new Server();
 
         while(true) {
             try {
                 clientList.removeIf(ch -> ch.clientSocket.isClosed());
                 System.out.println("[Server] Waiting for client connection...");
-                System.out.println("[Server] Connected Client : " + clientList.size()); // 접속한 클라이언트 수
+                System.out.println("[Server] Connected Client : " + clientList.size());
                 clientSocket = s.serverSocket.accept(); // 클라이언트 접속 대기
                 System.out.println("[Server] Connected to client!");
 
-                ClientHandler client = new ClientHandler(clientSocket); // 접속한 클라이언트에 대한 클라이언트 핸들러 생성
-                Server.clientList.add(client); // 클라이언트 리스트에 접속한 클라이언트 추가
+                ClientHandler client = new ClientHandler(clientSocket);
+                Server.clientList.add(client);
 
             } catch (IOException e) {
                 e.printStackTrace();
