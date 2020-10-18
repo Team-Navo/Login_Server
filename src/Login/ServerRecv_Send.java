@@ -3,18 +3,21 @@ import java.net.Socket;
 
 public class ServerRecv_Send implements Runnable {
     private static boolean checkDB;
+    private static boolean checkData;
     Socket clientSocket;
-    PrintWriter writer;
-    BufferedReader in; // 수신 데이터
+    PrintWriter out;
+    BufferedReader in;
 
     public ServerRecv_Send(Socket clientSocket) throws IOException {
-        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())); // 클라이언트의 입력을 읽는 객체를 in에 저장
-        writer = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()), true);
+        in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+        out = new PrintWriter(new OutputStreamWriter(clientSocket.getOutputStream()), true);
     }
 
     @Override
     public void run() {
         boolean isThread = true;
+        checkDB = true;
+        checkData = true;
 
         while (isThread) {
             try {
@@ -23,11 +26,17 @@ public class ServerRecv_Send implements Runnable {
                     isThread = false;
                 } else {
                     new ParsingToJSON(recvData); // 제이슨 파싱 클래스
+
+                    if (checkData == false) {
+                        out.println("[Wrong Data]");
+                        System.err.println("[Wrong Data]");
+                    }
+
                     if (checkDB) {
-                        writer.println("[DB Success]");
+                        out.println("[DB Success]");
                         System.out.println("[DB Success]");
                     } else {
-                        writer.println("[DB Failed]");
+                        out.println("[DB Failed]");
                         System.err.println("[DB Failed]");
                     }
                 }
@@ -45,7 +54,8 @@ public class ServerRecv_Send implements Runnable {
             }
         }
     }
-    static void checkDB ( boolean check){
+    static void checkDB (boolean check){
         checkDB = check;
     }
+    static void checkData (boolean check){ checkData = check; }
 }
