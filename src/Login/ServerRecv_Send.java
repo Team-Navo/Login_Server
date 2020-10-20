@@ -1,3 +1,5 @@
+package Login;
+
 import java.io.*;
 import java.net.Socket;
 
@@ -54,8 +56,6 @@ public class ServerRecv_Send implements Runnable {
             }
         }
     }
-    static void checkDB (boolean check){
-        checkDB = check;
-    }
+    static void checkDB (boolean check){ checkDB = check; }
     static void checkData (boolean check){ checkData = check; }
 }

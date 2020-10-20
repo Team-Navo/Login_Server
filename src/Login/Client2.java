@@ -1,3 +1,5 @@
+package Login;
+
 import java.io.*;
 import java.net.Socket;
 import java.util.Scanner;
@@ -21,7 +23,7 @@ public class Client2 {
     // 서버와 연결
     public void connect() {
         try{
-            clientSocket = new Socket("127.0.0.1",10002); // 클라이언트 정보
+            clientSocket = new Socket("127.0.0.1",1120); // 클라이언트 정보
             System.out.println("[Client] Connected to server");
         }
         catch(Exception e) {
