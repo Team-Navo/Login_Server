@@ -1,3 +1,5 @@
+package Login;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -10,7 +12,7 @@ public class Server {
     public void serverSetting() {
         try{
             System.out.println("[Server] ---JAVA GAME SERVER 가동---");
-            serverSocket = new ServerSocket(10002); // 생성&바인드
+            serverSocket = new ServerSocket(1120); // 생성&바인드
             System.out.println("[Server] socket create and bind");
 
         }
