@@ -1,14 +1,13 @@
 package database;
 
 import database.table.User;
-
 import java.sql.*;
 
 public class DBConnection {
     private final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver"; // DB 드라이버
-    private final String DB_URL = "jdbc:mysql://localhost:3306/user?&serverTimezone=UTC&useSSL=false";  // 접속할 DB 서버
-    private final static String USER_NAME = "root"; // DB에 접속할 사용자 이름
-    private final static String PASSWORD = "12345"; // 사용자 비밀번호
+    private final String DB_URL = "jdbc:mysql://localhost:3306/user?allowPublicKeyRetrieval=true&serverTimezone=UTC&useSSL=false";  // 접속할 DB 서버
+    private final static String USER_NAME = "navo"; // DB에 접속할 사용자 이름
+    private final static String PASSWORD = "navo12345"; // 사용자 비밀번호
     private static DBConnection connector;
     private static Connection conn;
 
@@ -37,11 +36,11 @@ public class DBConnection {
         boolean result = false;
         try {
             pstate = conn.prepareStatement(sql);
-            pstate.setString(1, user.getName());
-            pstate.setString(2, user.getBirth());
-            pstate.setString(3, user.getPhone());
-            pstate.setString(4, user.getId());
-            pstate.setString(5, user.getPw());
+            pstate.setString(1, user.getId());
+            pstate.setString(2, user.getPw());
+            pstate.setString(3, user.getName());
+            pstate.setString(4, user.getBirth());
+            pstate.setString(5, user.getPhone());
             int rs = pstate.executeUpdate();
 
             if(rs == 1) {
