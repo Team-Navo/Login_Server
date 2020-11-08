@@ -1,6 +1,6 @@
 package server;
 
-import database.DatabaseConnection;
+import database.DBConnection;
 import database.table.User;
 import org.json.simple.JSONObject;
 import util.JsonParser;
@@ -15,7 +15,7 @@ public class ServerRecvSend implements Runnable{
     Socket clientSocket;
     BufferedReader in;
     PrintWriter out;
-    DatabaseConnection db;
+    DBConnection db;
 
     public ServerRecvSend(Socket clientSocket) throws IOException {
         in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -39,7 +39,7 @@ public class ServerRecvSend implements Runnable{
                     if(json != null) {
                         // 로그인
                         if(json.get("Header").equals("login")) { // 파싱 데이터의 "Header"가 "login"일 떄
-                            db = DatabaseConnection.getConnector(); // DB 연결
+                            db = DBConnection.getConnector(); // DB 연결
                             User user = new User(); // 유저 객체 생성
                             user.setId((String) json.get("id"));
                             user.setPw((String) json.get("pw"));
@@ -54,7 +54,7 @@ public class ServerRecvSend implements Runnable{
                         }
                         // 회원가입
                         else if(json.get("Header").equals("create")) {
-                            db = DatabaseConnection.getConnector();
+                            db = DBConnection.getConnector();
                             User user = new User();
                             user.setName((String)json.get("name"));
                             user.setBirth((String)json.get("birth"));
@@ -73,7 +73,7 @@ public class ServerRecvSend implements Runnable{
 
                         // id 찾기
                         else if(json.get("Header").equals("id")) {
-                            db = DatabaseConnection.getConnector();
+                            db = DBConnection.getConnector();
                             User user = new User();
                             user.setName((String)json.get("name"));
                             user.setBirth((String)json.get("birth"));
@@ -92,7 +92,7 @@ public class ServerRecvSend implements Runnable{
 
                         // pw 찾기
                         else if(json.get("Header").equals("pw")) {
-                            db = DatabaseConnection.getConnector();
+                            db = DBConnection.getConnector();
                             User user = new User();
                             user.setId((String)json.get("id"));
                             user.setName((String)json.get("name"));

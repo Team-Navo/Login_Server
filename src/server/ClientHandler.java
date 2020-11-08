@@ -5,15 +5,15 @@ import java.net.Socket;
 public class ClientHandler {
     Socket clientSocket;
 
-    ServerRecv serverRecv;
+    ServerRecvSend serverRecvSend;
     //ServerSend serverSend;
 
     public void streamSetting() {
         try{
             clientSocket.getInetAddress();
-            serverRecv = new ServerRecv(clientSocket);
+            serverRecvSend = new ServerRecvSend(clientSocket);
             //serverSend = new ServerSend(clientSocket);
-            new Thread(serverRecv).start();
+            new Thread(serverRecvSend).start();
             //new Thread(serverSend).start();
         }
         catch(Exception e) {
